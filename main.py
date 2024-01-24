@@ -31,21 +31,30 @@ class Application:
             celula = planilha.active
 
             # GET dos dados que irão para a planilha
-            lista_usuarios = get('https://jsonplaceholder.typicode.com/users')
-            lista_usuarios = lista_usuarios.json()
+            lista_dados = get('https://dummyjson.com/products')
+            lista_dados = lista_dados.json()['products']
 
             # Definição do que cada coluna irá apresentar. Key é o nome do objeto vindo da API 
             coords = [
-                { "col": "A", "key": "id" },
-                { "col": "B", "key": "name" },
-                { "col": "C", "key": "username" },
-                { "col": "D", "key": "email" },
-                { "col": "E", "key": "phone" },
+                { "col": "A", "key": "id", "format": None },
+                { "col": "B", "key": "brand", "format": None },
+                { "col": "C", "key": "title", "format": None },
+                { "col": "D", "key": "description", "format": None },
+                { "col": "E", "key": "price", "format": lambda price: "R$ " + str(price) },
+                { "col": "F", "key": "discountPercentage", "format": None },
+                { "col": "G", "key": "rating", "format": None },
+                { "col": "H", "key": "stock", "format": None },
+                { "col": "F", "key": "category", "format": None },
             ]
 
             for c in coords: # Loop nas colunas/coordenadas
-                for i in range(len(lista_usuarios)): # Loop nos objetos/dict da API
-                    celula[c['col'] + str(i + 1)].value = lista_usuarios[i][c['key']] # Atualização do valor da célula [A1, A2, A3 ...]
+                celula[c['col'] + '1'].value = c['key']
+
+                for i in range(len(lista_dados)): # Loop nos objetos/dict da API
+                    if c['format'] is not None: # Verifica se a coluna possui alguma função para formatar o valor da linha
+                        celula[c['col'] + str(i + 2)].value = c['format'](lista_dados[i][c['key']])
+                    else:
+                        celula[c['col'] + str(i + 2)].value = lista_dados[i][c['key']] # Atualização do valor da célula [A1, A2, A3 ...]
 
             planilha.save(path) # Salva as alterações feitas na planilha
             self.input.delete(0, 'end') # Limpa o input
