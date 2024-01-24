@@ -41,10 +41,10 @@ class Application:
                 { "col": "C", "key": "title", "format": None },
                 { "col": "D", "key": "description", "format": None },
                 { "col": "E", "key": "price", "format": lambda price: "R$ " + str(price) },
-                { "col": "F", "key": "discountPercentage", "format": None },
+                { "col": "F", "key": "discountPercentage", "format": lambda percentage: str(percentage) + '%' },
                 { "col": "G", "key": "rating", "format": None },
                 { "col": "H", "key": "stock", "format": None },
-                { "col": "F", "key": "category", "format": None },
+                { "col": "I", "key": "category", "format": None },
             ]
 
             for c in coords: # Loop nas colunas/coordenadas
@@ -57,8 +57,10 @@ class Application:
                         celula[c['col'] + str(i + 2)].value = lista_dados[i][c['key']] # Atualização do valor da célula [A1, A2, A3 ...]
 
             planilha.save(path) # Salva as alterações feitas na planilha
-            self.input.delete(0, 'end') # Limpa o input
             messagebox.showinfo(title='SUCESSO', message='Planilha atualizada com sucesso') # Notificação de que a planilha foi alterada
+
+            self.input.delete(0, 'end') # Limpa o input
+            root.destroy() # Fecha a janela
         except:
             messagebox.showerror(title='ERRO', message='Não foi possível executar a operação') # Notificação de erro
 
