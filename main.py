@@ -1,5 +1,5 @@
+from openpyxl import load_workbook
 from requests import get
-import openpyxl
 from tkinter import *
 from tkinter import messagebox
 
@@ -24,7 +24,7 @@ class Application:
         path = self.input.get()
 
         try:
-            planilha = openpyxl.load_workbook(path)
+            planilha = load_workbook(path)
 
             lista_usuarios = get('https://jsonplaceholder.typicode.com/users')
             lista_usuarios = lista_usuarios.json()
