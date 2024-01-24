@@ -60,7 +60,7 @@ class Application:
             messagebox.showinfo(title='SUCESSO', message='Planilha atualizada com sucesso') # Notificação de que a planilha foi alterada
 
             self.input.delete(0, 'end') # Limpa o input
-            root.destroy() # Fecha a janela
+            return root.destroy() # Fecha a janela
         except:
             messagebox.showerror(title='ERRO', message='Não foi possível executar a operação') # Notificação de erro
 
