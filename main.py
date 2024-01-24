@@ -5,19 +5,19 @@ from tkinter import messagebox
 
 class Application:
     def __init__(self, master = None):
-        self.frame = Frame(master, padx=10, pady=5, width=100)
+        self.frame = Frame(master, padx=15, pady=5, width=100)
         self.frame.pack()
 
         self.label = Label(self.frame, text='Digite o caminho do arquivo (.xlsx):')
         self.label.grid(row=1, column=1)
 
-        self.input = Entry(self.frame, width=30)
+        self.input = Entry(self.frame, width=50)
         self.input.grid(row=1, column=2)
 
         self.frame_bottom = Frame(master, padx=10, pady=5)
         self.frame_bottom.pack()
 
-        self.button = Button(self.frame_bottom, text='Atualizar planilha', command=lambda: self.atualizarPlanilha(), width=50)
+        self.button = Button(self.frame_bottom, text='Atualizar planilha', command=lambda: self.atualizarPlanilha(), width=70)
         self.button.pack()
 
     def atualizarPlanilha(self):
